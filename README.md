@@ -1,127 +1,160 @@
-PitchCraft AI ⚡
-Serbest Çalışan (Freelance) Platformları (Upwork) İçin Yapay Zekâ Destekli Teklif Asistanı
+# PitchCraft AI ⚡
 
-Google Chrome Manifest V3, React, TypeScript ve Google Gemini 3.5 Flash ile güçlendirilmiş güvenli bir Node.js/Express arka ucu ile geliştirilmiştir.
+> **Freelance Platformları (Upwork) İçin Yapay Zekâ Destekli Akıllı Teklif Asistanı**  
+> **Google Chrome Manifest V3**, **React**, **TypeScript** ve **Google Gemini 3.5 Flash** ile güçlendirilmiş güvenli **Node.js/Express** proxy mimarisi.
 
-📌 Genel Bakış
-PitchCraft AI, serbest çalışanların Upwork gibi platformlarda 3 saniyenin altında özlü, yüksek oranda kişiselleştirilmiş ve dönüşüm oranı yüksek teklifler hazırlamasına yardımcı olmak için tasarlanmış açık kaynaklı bir verimlilik uzantısıdır.
+---
 
-Kalıp ve jenerik yapay zekâ ön yazı taslakları üretmek yerine; müşterinin özel gereksinimlerini, teknik zorluklarını ve eleme sorularını analiz ederek bunları doğrudan serbest çalışanın portföyü, yetenek seti ve iletişim tarzıyla eşleştirir.
+## 📌 Genel Bakış
 
-🏗️ Mimari ve Güvenlik
-Chrome uzantıları kullanıcının tarayıcısında çalışır; bu da istemci tarafı (client-side) kodlarının kaynak kod incelemesine veya tersine mühendisliğe açık olması anlamına gelir. API anahtarının sızmasını ve kötüye kullanımını önlemek amacıyla PitchCraft, Güvenli Proxy Arka Uç Mimarisi (Secure Proxy Backend Architecture) kullanır:
+**PitchCraft AI**, serbest çalışanların Upwork gibi platformlarda saniyeler içinde doğrudan işe odaklanan, kişiselleştirilmiş ve dönüşüm oranı yüksek teklifler (proposal / cover letter) hazırlamasını sağlayan açık kaynaklı bir Chrome tarayıcı uzantısıdır.
 
+Klasik ve kalıp yapay zekâ metinleri yerine; iş ilanındaki spesifik teknik gereksinimleri, müşteri problemlerini ve eleme sorularını doğrudan analiz eder; bunları geliştiricinin veya serbest çalışanın yetenek seti ve deneyimleriyle eşleştirir.
+
+---
+
+## ✨ Öne Çıkan Özellikler
+
+- ⚡ **3 Saniyede Teklif Üretimi:** Upwork iş ilanını otomatik analiz ederek optimize edilmiş teklif taslağı çıkarır.
+- 🎯 **Kişiselleştirilmiş Eşleştirme:** İlan gereksinimlerini profilinizdeki yetenek ve portföy verileriyle bağlar.
+- 🛡️ **Güvenli Proxy Mimarisi:** API anahtarlarını tarayıcıda tutmaz; sunucu tarafında güvenli bir şekilde saklar.
+- 🧩 **Manifest V3 Uyumlu:** Modern Chrome uzantı standartlarına, servis çalışanlarına (service workers) ve sıkı izin politikalarına tam uyumludur.
+- 🤖 **Doğal Prompt Mühendisliği:** Gemini `systemInstruction` API'si ile prompt sızıntılarını (prompt injection) önler.
+
+---
+
+## 🏗️ Mimari ve Güvenlik
+
+Chrome uzantıları istemci tarafında (client-side) çalıştığı için kaynak kodları incelenebilir. API anahtarının yetkisiz kişilerin eline geçmesini ve kötüye kullanımını önlemek amacıyla PitchCraft **Secure Proxy Backend** mimarisini kullanır:
+
+```
 ┌──────────────────────────────────────────┐
 │       Chrome Tarayıcısı (Manifest V3)    │
-│       • Açılır Arayüz (React + TS)       │
-│       • İçerik Betikleri (DOM Hook)      │
-│       • Yerel Depolama (State Sync)      │
+│       • Açılır Pencere UI (React + TS)   │
+│       • Sayfa İçi Betikler (DOM Hook)    │
+│       • Yerel Durum Yönetimi (Storage)   │
 └────────────────────┬─────────────────────┘
                      │  x-pitchcraft-secret (Doğrulama Başlığı)
                      ▼
 ┌──────────────────────────────────────────┐
 │       Güvenli Proxy Sunucusu (Express)   │
-│       • İstek Sınırlama & CORS Kalkanı   │
-│       • Kullanım Sayacı & Kota Koruması  │
-│       • Prompt Mühendisliği Motoru       │
+│       • İstek Sınırlama (Rate Limit)     │
+│       • CORS ve Kota Koruması            │
+│       • Prompt İşleme & Formatlama       │
 └────────────────────┬─────────────────────┘
                      │  Sunucudan Sunucuya HTTPS
                      ▼
 ┌──────────────────────────────────────────┐
 │            Google Gemini 3.5 Flash       │
 │       • systemInstruction Bağlamı        │
-│       • Düşük Gecikmeli İçerik Üretimi   │
+│       • Düşük Gecikmeli Metin Üretimi    │
 └──────────────────────────────────────────┘
-Temel Mühendislik Kararları:
-Sıfır Gizli Anahtar Sızıntısı: Google Gemini API anahtarı yalnızca sunucudaki .env dosyasında barındırılır. Uzantı, sunucuyla yalnızca kimlik doğrulaması yapılmış proxy uç noktaları üzerinden iletişim kurar.
+```
 
-Manifest V3 Standartları: Service worker mimarisini (background.ts) ve kapsamı sınırlandırılmış izinleri (activeTab, storage) kullanır.
+---
 
-Akıllı Prompt Mühendisliği: Prompt injection (komut enjeksiyonu) saldırılarını engellemek ve yüksek dönüşümlü metin yazarlığı standartlarını garanti altına almak için Gemini'nin yerel systemInstruction API'sini kullanır.
+## 🚀 Teknoloji Yığını
 
-🚀 Teknoloji Yığını
-Ön Yüz (Frontend): React 18, TypeScript, Plasmo Framework (Manifest V3)
+| Katman | Teknolojiler |
+| :--- | :--- |
+| **Frontend (Extension)** | React 18, TypeScript, [Plasmo Framework](https://www.plasmo.com/) (Manifest V3) |
+| **Backend (Proxy API)** | Node.js, Express.js, `express-rate-limit`, CORS |
+| **Yapay Zekâ Motoru** | Google Gemini 3.5 Flash (`v1beta`) |
+| **Veritabanı (Opsiyonel)** | Supabase (PostgreSQL with RLS) |
+| **Ödeme / Kota Hook'u** | Lemon Squeezy (Freemium 10 kredi modeli) |
 
-Arka Yüz (Backend): Node.js, Express, express-rate-limit, CORS
+---
 
-Yapay Zekâ Motoru: Google Gemini 3.5 Flash API (v1beta)
+## 📂 Dizin Yapısı
 
-Veritabanı (İsteğe Bağlı): Supabase (Satır Düzeyi Güvenlik / RLS destekli PostgreSQL)
-
-Ödeme & Gelir Modeli: Lemon Squeezy (Freemium 10 kredi kotası)
-
-📂 Dizin Yapısı
+```bash
 pitchcraft-ai/
-├── extension/                 # Chrome Uzantısı (Plasmo + React + TypeScript)
-│   ├── popup.tsx              # Uzantı açılır pencere arayüzü ve profil yönetimi
-│   ├── background.ts          # Arka uç iletişimini yöneten Service Worker
-│   ├── contents/              # Upwork DOM'u için sayfa içi içerik komut dosyaları
-│   ├── assets/                # Uzantı ikonları (16, 32, 48, 64, 128px)
+├── extension/                 # Chrome Uzantı Kaynak Kodları (Plasmo)
+│   ├── popup.tsx              # Uzantı ana kullanıcı arayüzü & profil formu
+│   ├── background.ts          # Backend iletişimini sağlayan Service Worker
+│   ├── contents/              # Upwork DOM'una bağlanan içerik betikleri
+│   ├── assets/                # İkonlar ve görsel varlıklar (16-128px)
 │   ├── package.json
 │   └── tsconfig.json
 │
 ├── backend/                   # Güvenli Express.js Proxy Sunucusu
 │   ├── api/
-│   │   └── index.js           # Express API uç noktaları (/api/generate, /api/user/sync)
-│   ├── supabase_setup.sql     # Kalıcı kullanıcı kotaları için veritabanı şeması
-│   ├── vercel.json            # Vercel için tek tıkla dağıtım yapılandırması
-│   ├── .env.example           # Ortam değişkenleri şablonu
+│   │   └── index.js           # API uç noktaları (/api/generate, /api/user/sync)
+│   ├── supabase_setup.sql     # Kota ve kullanıcı tabloları için SQL şeması
+│   ├── vercel.json            # Vercel tek tıkla dağıtım konfigürasyonu
+│   ├── .env.example           # Örnek ortam değişkenleri
 │   └── package.json
 │
 ├── .gitignore
 └── README.md
-🛠️ Kurulum ve Başlangıç
-1. Ön Koşullar
-Node.js (v18 veya üzeri)
+```
 
-npm veya pnpm
+---
 
-Google Chrome tarayıcısı
+## 🛠️ Kurulum ve Çalıştırma
 
-Google Gemini API Anahtarı (Google AI Studio)
+### 1. Ön Koşullar
+- [Node.js](https://nodejs.org/) (v18 veya üzeri)
+- npm veya pnpm paket yöneticisi
+- Google Chrome tarayıcısı
+- [Google AI Studio](https://aistudio.google.com/) üzerinden alınmış bir Gemini API anahtarı
 
-2. Arka Uç (Backend) Kurulumu
-Bash
+---
+
+### 2. Arka Yüz (Backend) Kurulumu
+
+```bash
 cd backend
 
 # Bağımlılıkları yükleyin
 npm install
 
-# Ortam değişkenleri şablonunu kopyalayın
+# Ortam değişkenleri dosyasını oluşturun
 cp .env.example .env
-.env dosyasını açıp ilgili anahtarları tanımlayın:
+```
 
-Kod snippet'i
-GEMINI_API_KEY=buraya_gemini_api_anahtariniz
-EXTENSION_SECRET=buraya_pitchcraft_gizli_anahtari
+`.env` dosyasını düzenleyin:
+```env
+GEMINI_API_KEY=your_gemini_api_key_here
+EXTENSION_SECRET=your_custom_secret_key_here
 PORT=3001
-Sunucuyu başlatın:
+```
 
-Bash
+Geliştirme sunucusunu başlatın:
+```bash
 npm run dev
-# Sunucu şu adreste çalışır: http://127.0.0.1:3001
-# Sağlık kontrolü uç noktası: http://127.0.0.1:3001/health
-3. Uzantı (Extension) Kurulumu
-Bash
+# Sunucu: [http://127.0.0.1:3001](http://127.0.0.1:3001)
+# Sağlık Kontrolü: [http://127.0.0.1:3001/health](http://127.0.0.1:3001/health)
+```
+
+---
+
+### 3. Uzantı (Extension) Kurulumu ve Derleme
+
+```bash
 cd ../extension
 
 # Bağımlılıkları yükleyin
 npm install
 
-# Chrome Manifest V3 için uzantıyı derleyin
+# Chrome Manifest V3 için derleyin
 npm run build
-Yayına hazır uzantı dosyaları extension/build/chrome-mv3-prod klasörüne derlenecektir.
+```
 
-4. Google Chrome'a Yükleme
-Chrome'u açın ve adres çubuğuna chrome://extensions yazın.
+Derleme çıktısı `extension/build/chrome-mv3-prod` dizininde üretilecektir.
 
-Sağ üst köşedeki Geliştirici modu (Developer mode) anahtarını açın.
+---
 
-Sol üstteki Paketlenmemiş öğe yükle (Load unpacked) butonuna tıklayın.
+### 4. Chrome'a Yükleme
 
-extension/build/chrome-mv3-prod klasörünü seçin.
+1. Tarayıcınızda `chrome://extensions` adresine gidin.
+2. Sağ üst köşedeki **Geliştirici modu** (Developer mode) anahtarını aktif edin.
+3. Sol üstteki **Paketlenmemiş öğe yükle** (Load unpacked) butonuna tıklayın.
+4. `pitchcraft-ai/extension/build/chrome-mv3-prod` klasörünü seçin.
+5. Uzantıyı araç çubuğuna sabitleyerek kullanmaya başlayabilirsiniz.
 
-PitchCraft AI uzantısını araç çubuğuna sabitleyip kullanmaya başlayın!
+---
 
-📄 Lisans
-Bu proje MIT Lisansı ile lisanslanmıştır - ayrıntılar için LICENSE dosyasına bakabilirsiniz.
+## 📄 Lisans
+
+Bu proje **MIT Lisansı** altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına göz atabilirsiniz.
