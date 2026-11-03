@@ -1,0 +1,35 @@
+{
+  "name": "proposal-craft-ai",
+  "displayName": "PitchCraft AI - Upwork Proposal Assistant",
+  "version": "0.1.0",
+  "description": "AI-powered custom proposal generator tailored for Upwork and freelance platforms.",
+  "author": "PitchCraft Team",
+  "scripts": {
+    "dev": "plasmo dev",
+    "build": "plasmo build",
+    "package": "plasmo package"
+  },
+  "dependencies": {
+    "plasmo": "0.90.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.1",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "typescript": "5.7.2"
+  },
+  "manifest": {
+    "name": "PitchCraft AI - Upwork Proposal Assistant",
+    "description": "Generate high-converting, personalized Upwork proposals in seconds using AI.",
+    "permissions": [
+      "storage",
+      "clipboardWrite"
+    ],
+    "host_permissions": [
+      "https://*.upwork.com/*"
+    ]
+  }
+}
+
